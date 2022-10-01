@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: services/build-status</title>
+    <title>JSDoc: Module: services/endpoint-common</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: services/build-status</h1>
+    <h1 class="page-title">Module: services/endpoint-common</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Common functions and schemas for tasks related to build status.</p></div>
+            <div class="description"><p>Common functions and utilities for tasks related to endpoint badges.</p></div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line1">line 1</a>
+        <a href="services_endpoint-common.js.html">services/endpoint-common.js</a>, <a href="services_endpoint-common.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -138,14 +138,13 @@
 
         
             
-<h4 class="name" id="~isBuildStatus"><span class="type-signature">(inner, constant) </span>isBuildStatus<span class="type-signature"> :Joi</span></h4>
+<h4 class="name" id="~endpointSchema"><span class="type-signature">(inner, constant) </span>endpointSchema<span class="type-signature"> :Joi</span></h4>
 
 
 
 
 <div class="description">
-    <p>Joi schema for validating Build Status.
-Checks if the build status is present in the list of allowed build status.</p>
+    <p>Joi schema for validating endpoint.</p>
 </div>
 
 
@@ -193,7 +192,7 @@ Checks if the build status is present in the list of allowed build status.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line65">line 65</a>
+        <a href="services_endpoint-common.js.html">services/endpoint-common.js</a>, <a href="services_endpoint-common.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -221,7 +220,7 @@ Checks if the build status is present in the list of allowed build status.</p>
     
 
     
-    <h4 class="name" id="~renderBuildStatusBadge"><span class="type-signature">(inner) </span>renderBuildStatusBadge<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="~fetchEndpointData"><span class="type-signature">(async, inner) </span>fetchEndpointData<span class="signature">(serviceInstance, attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -229,8 +228,7 @@ Checks if the build status is present in the list of allowed build status.</p>
 
 
 <div class="description">
-    <p>Handles rendering concerns of badges that display build status.
-Determines the message and color of the badge according to the build status.</p>
+    <p>Fetches data from the endpoint and validates the data.</p>
 </div>
 
 
@@ -262,6 +260,331 @@ Determines the message and color of the badge according to the build status.</p>
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>serviceInstance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Instance of Endpoint class</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attrs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Refer to individual attributes</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Endpoint URL</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>errorMessages</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Object containing error messages for different error codes</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>validationPrettyErrorMessage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>If provided then the error message is set to this value</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeKeys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>If true then includes error details in error message</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_endpoint-common.js.html">services/endpoint-common.js</a>, <a href="services_endpoint-common.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Data fetched from endpoint</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~validateEndpointData"><span class="type-signature">(inner) </span>validateEndpointData<span class="signature">(data, attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Strictly validate the data according to the endpoint schema.
+This rejects unknown/invalid keys.
+Optionally it prints those keys in the message to provide detailed feedback.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Object containing the data for validation</p></td>
+        </tr>
+
     
 
         <tr>
@@ -310,7 +633,7 @@ Determines the message and color of the badge according to the build status.</p>
 
         <tr>
             
-                <td class="name"><code>label</code></td>
+                <td class="name"><code>prettyErrorMessage</code></td>
             
 
             <td class="type">
@@ -336,20 +659,20 @@ Determines the message and color of the badge according to the build status.</p>
 
             
 
-            <td class="description last"><p>If provided then badge label is set to this value</p></td>
+            <td class="description last"><p>If provided then error message is set to this value</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>status</code></td>
+                <td class="name"><code>includeKeys</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">boolean</span>
 
 
             
@@ -357,6 +680,8 @@ Determines the message and color of the badge according to the build status.</p>
 
             
                 <td class="attributes">
+                
+                    &lt;optional><br>
                 
 
                 
@@ -367,7 +692,7 @@ Determines the message and color of the badge according to the build status.</p>
 
             
 
-            <td class="description last"><p>Build status</p></td>
+            <td class="description last"><p>If true then includes error details in error message, defaults to false</p></td>
         </tr>
 
     
@@ -415,7 +740,7 @@ Determines the message and color of the badge according to the build status.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line76">line 76</a>
+        <a href="services_endpoint-common.js.html">services/endpoint-common.js</a>, <a href="services_endpoint-common.js.html#line59">line 59</a>
     </li></ul></dd>
     
 
@@ -438,13 +763,45 @@ Determines the message and color of the badge according to the build status.</p>
 
 
 
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>Error if Joi validation fails due to invalid or no schema</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">InvalidResponse</span>
+|
+
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>Badge with label, message and color properties</p>
+    <p>Value if Joi validation is success</p>
 </div>
 
 

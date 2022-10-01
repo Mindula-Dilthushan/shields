@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: services/build-status</title>
+    <title>JSDoc: Module: services/licenses</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: services/build-status</h1>
+    <h1 class="page-title">Module: services/licenses</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Common functions and schemas for tasks related to build status.</p></div>
+            <div class="description"><p>Common functions and utilities for tasks related to license badges.</p></div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line1">line 1</a>
+        <a href="services_licenses.js.html">services/licenses.js</a>, <a href="services_licenses.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -138,14 +138,13 @@
 
         
             
-<h4 class="name" id="~isBuildStatus"><span class="type-signature">(inner, constant) </span>isBuildStatus<span class="type-signature"> :Joi</span></h4>
+<h4 class="name" id="~licenseToColorMap"><span class="type-signature">(inner, constant) </span>licenseToColorMap<span class="type-signature"> :object</span></h4>
 
 
 
 
 <div class="description">
-    <p>Joi schema for validating Build Status.
-Checks if the build status is present in the list of allowed build status.</p>
+    <p>Mapping of licenses to their corresponding color and priority.</p>
 </div>
 
 
@@ -154,7 +153,7 @@ Checks if the build status is present in the list of allowed build status.</p>
     <ul>
         <li>
             
-<span class="param-type">Joi</span>
+<span class="param-type">object</span>
 
 
         </li>
@@ -193,7 +192,7 @@ Checks if the build status is present in the list of allowed build status.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line65">line 65</a>
+        <a href="services_licenses.js.html">services/licenses.js</a>, <a href="services_licenses.js.html#line102">line 102</a>
     </li></ul></dd>
     
 
@@ -221,7 +220,7 @@ Checks if the build status is present in the list of allowed build status.</p>
     
 
     
-    <h4 class="name" id="~renderBuildStatusBadge"><span class="type-signature">(inner) </span>renderBuildStatusBadge<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="~licenseToColor"><span class="type-signature">(inner) </span>licenseToColor<span class="signature">(licenses)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -229,8 +228,171 @@ Checks if the build status is present in the list of allowed build status.</p>
 
 
 <div class="description">
-    <p>Handles rendering concerns of badges that display build status.
-Determines the message and color of the badge according to the build status.</p>
+    <p>Maps the license to its corresponding color and priority and sorts the list of mapped licenses by priority.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>licenses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>License or list of licenses</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_licenses.js.html">services/licenses.js</a>, <a href="services_licenses.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Color corresponding to the license or the list of licenses</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~renderLicenseBadge"><span class="type-signature">(inner) </span>renderLicenseBadge<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Handles rendering concerns of license badges.
+Determines the message of the badge by joining the licenses in a comma-separated format.
+Sets the badge color to the provided value, if not provided then the color is used from licenseToColorMap.</p>
 </div>
 
 
@@ -310,7 +472,7 @@ Determines the message and color of the badge according to the build status.</p>
 
         <tr>
             
-                <td class="name"><code>label</code></td>
+                <td class="name"><code>license</code></td>
             
 
             <td class="type">
@@ -336,14 +498,47 @@ Determines the message and color of the badge according to the build status.</p>
 
             
 
-            <td class="description last"><p>If provided then badge label is set to this value</p></td>
+            <td class="description last"><p>License to render, required if badge contains only one license</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>status</code></td>
+                <td class="name"><code>licenses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>List of licenses to render, required if badge contains multiple licenses</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
             
 
             <td class="type">
@@ -358,6 +553,8 @@ Determines the message and color of the badge according to the build status.</p>
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -367,7 +564,7 @@ Determines the message and color of the badge according to the build status.</p>
 
             
 
-            <td class="description last"><p>Build status</p></td>
+            <td class="description last"><p>If provided then the badge will use this color value</p></td>
         </tr>
 
     
@@ -415,7 +612,7 @@ Determines the message and color of the badge according to the build status.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line76">line 76</a>
+        <a href="services_licenses.js.html">services/licenses.js</a>, <a href="services_licenses.js.html#line144">line 144</a>
     </li></ul></dd>
     
 
@@ -444,7 +641,7 @@ Determines the message and color of the badge according to the build status.</p>
 
         
 <div class="param-desc">
-    <p>Badge with label, message and color properties</p>
+    <p>Badge with message and color properties</p>
 </div>
 
 

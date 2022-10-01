@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: services/build-status</title>
+    <title>JSDoc: Module: services/package-json-helpers</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: services/build-status</h1>
+    <h1 class="page-title">Module: services/package-json-helpers</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Common functions and schemas for tasks related to build status.</p></div>
+            <div class="description"><p>Common functions and utilities for tasks related to package.json</p></div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line1">line 1</a>
+        <a href="services_package-json-helpers.js.html">services/package-json-helpers.js</a>, <a href="services_package-json-helpers.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -138,14 +138,13 @@
 
         
             
-<h4 class="name" id="~isBuildStatus"><span class="type-signature">(inner, constant) </span>isBuildStatus<span class="type-signature"> :Joi</span></h4>
+<h4 class="name" id="~isDependencyMap"><span class="type-signature">(inner, constant) </span>isDependencyMap<span class="type-signature"> :Joi</span></h4>
 
 
 
 
 <div class="description">
-    <p>Joi schema for validating Build Status.
-Checks if the build status is present in the list of allowed build status.</p>
+    <p>Joi schema for validating dependency map.</p>
 </div>
 
 
@@ -193,7 +192,80 @@ Checks if the build status is present in the list of allowed build status.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line65">line 65</a>
+        <a href="services_package-json-helpers.js.html">services/package-json-helpers.js</a>, <a href="services_package-json-helpers.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~isPackageJsonWithDependencies"><span class="type-signature">(inner, constant) </span>isPackageJsonWithDependencies<span class="type-signature"> :Joi</span></h4>
+
+
+
+
+<div class="description">
+    <p>Joi schema for validating package json object.
+Checks if the object has all the dependency types and the dependency types are valid.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Joi</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_package-json-helpers.js.html">services/package-json-helpers.js</a>, <a href="services_package-json-helpers.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -221,7 +293,7 @@ Checks if the build status is present in the list of allowed build status.</p>
     
 
     
-    <h4 class="name" id="~renderBuildStatusBadge"><span class="type-signature">(inner) </span>renderBuildStatusBadge<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="~getDependencyVersion"><span class="type-signature">(inner) </span>getDependencyVersion<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -229,8 +301,7 @@ Checks if the build status is present in the list of allowed build status.</p>
 
 
 <div class="description">
-    <p>Handles rendering concerns of badges that display build status.
-Determines the message and color of the badge according to the build status.</p>
+    <p>Determines the dependency version based on the dependency type.</p>
 </div>
 
 
@@ -296,8 +367,6 @@ Determines the message and color of the badge according to the build status.</p>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -310,7 +379,7 @@ Determines the message and color of the badge according to the build status.</p>
 
         <tr>
             
-                <td class="name"><code>label</code></td>
+                <td class="name"><code>kind</code></td>
             
 
             <td class="type">
@@ -323,27 +392,17 @@ Determines the message and color of the badge according to the build status.</p>
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>If provided then badge label is set to this value</p></td>
+            <td class="description last"><p>Wanted dependency type, defaults to prod</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>status</code></td>
+                <td class="name"><code>wantedDependency</code></td>
             
 
             <td class="type">
@@ -356,18 +415,102 @@ Determines the message and color of the badge according to the build status.</p>
             </td>
 
             
-                <td class="attributes">
-                
 
-                
+            
 
+            <td class="description last"><p>Name of the wanted dependency</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dependencies</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
             
 
             
 
-            <td class="description last"><p>Build status</p></td>
+            <td class="description last"><p>Map of dependencies</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>devDependencies</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Map of dev dependencies</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>peerDependencies</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Map of peer dependencies</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>optionalDependencies</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Map of optional dependencies</p></td>
         </tr>
 
     
@@ -415,7 +558,7 @@ Determines the message and color of the badge according to the build status.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line76">line 76</a>
+        <a href="services_package-json-helpers.js.html">services/package-json-helpers.js</a>, <a href="services_package-json-helpers.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -438,13 +581,73 @@ Determines the message and color of the badge according to the build status.</p>
 
 
 
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <ul>
+<li>Error message if unknown dependency type provided</li>
+</ul>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">string</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <ul>
+<li>Error if wanted dependency is not present</li>
+</ul>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">InvalidParameter</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    </ul>
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>Badge with label, message and color properties</p>
+    <p>Semver range of the wanted dependency (eg. ~2.1.6 or &gt;=3.0.0 or &lt;4.0.0)</p>
 </div>
 
 
@@ -455,7 +658,7 @@ Determines the message and color of the badge according to the build status.</p>
     </dt>
     <dd>
         
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
     </dd>

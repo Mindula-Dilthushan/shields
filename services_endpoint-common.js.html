@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: services/build-status</title>
+    <title>JSDoc: Source: services/endpoint-common.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,465 +17,124 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: services/build-status</h1>
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Common functions and schemas for tasks related to build status.</p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~isBuildStatus"><span class="type-signature">(inner, constant) </span>isBuildStatus<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi schema for validating Build Status.
-Checks if the build status is present in the list of allowed build status.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Joi</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line65">line 65</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~renderBuildStatusBadge"><span class="type-signature">(inner) </span>renderBuildStatusBadge<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Handles rendering concerns of badges that display build status.
-Determines the message and color of the badge according to the build status.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Refer to individual attributes</p>
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>If provided then badge label is set to this value</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>status</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Build status</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_build-status.js.html">services/build-status.js</a>, <a href="services_build-status.js.html#line76">line 76</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Badge with label, message and color properties</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">Source: services/endpoint-common.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Common functions and utilities for tasks related to endpoint badges.
+ *
+ * @module
+ */
+
+import Joi from 'joi'
+import validate from '../core/base-service/validate.js'
+import { InvalidResponse } from './index.js'
+
+const optionalStringWhenNamedLogoPresent = Joi.alternatives().conditional(
+  'namedLogo',
+  {
+    is: Joi.string().required(),
+    then: Joi.string(),
+  }
+)
+
+const optionalNumberWhenAnyLogoPresent = Joi.alternatives()
+  .conditional('namedLogo', { is: Joi.string().required(), then: Joi.number() })
+  .conditional('logoSvg', { is: Joi.string().required(), then: Joi.number() })
+
+/**
+ * Joi schema for validating endpoint.
+ *
+ * @type {Joi}
+ */
+const endpointSchema = Joi.object({
+  schemaVersion: 1,
+  label: Joi.string().allow('').required(),
+  message: Joi.string().required(),
+  color: Joi.string(),
+  labelColor: Joi.string(),
+  isError: Joi.boolean().default(false),
+  namedLogo: Joi.string(),
+  logoSvg: Joi.string(),
+  logoColor: optionalStringWhenNamedLogoPresent,
+  logoWidth: optionalNumberWhenAnyLogoPresent,
+  logoPosition: optionalNumberWhenAnyLogoPresent,
+  style: Joi.string(),
+  cacheSeconds: Joi.number().integer().min(0),
+})
+  // `namedLogo` or `logoSvg`; not both.
+  .oxor('namedLogo', 'logoSvg')
+  .required()
+
+/**
+ * Strictly validate the data according to the endpoint schema.
+ * This rejects unknown/invalid keys.
+ * Optionally it prints those keys in the message to provide detailed feedback.
+ *
+ * @param {object} data Object containing the data for validation
+ * @param {object} attrs Refer to individual attributes
+ * @param {string} [attrs.prettyErrorMessage] If provided then error message is set to this value
+ * @param {boolean} [attrs.includeKeys] If true then includes error details in error message, defaults to false
+ * @throws {InvalidResponse|Error} Error if Joi validation fails due to invalid or no schema
+ * @returns {object} Value if Joi validation is success
+ */
+function validateEndpointData(
+  data,
+  { prettyErrorMessage = 'invalid response data', includeKeys = false } = {}
+) {
+  return validate(
+    {
+      ErrorClass: InvalidResponse,
+      prettyErrorMessage,
+      includeKeys,
+      traceErrorMessage: 'Response did not match schema',
+      traceSuccessMessage: 'Response after validation',
+      allowAndStripUnknownKeys: false,
+    },
+    data,
+    endpointSchema
+  )
+}
+
+const anySchema = Joi.any()
+
+/**
+ * Fetches data from the endpoint and validates the data.
+ *
+ * @param {object} serviceInstance Instance of Endpoint class
+ * @param {object} attrs Refer to individual attributes
+ * @param {string} attrs.url Endpoint URL
+ * @param {object} attrs.errorMessages Object containing error messages for different error codes
+ * @param {string} attrs.validationPrettyErrorMessage If provided then the error message is set to this value
+ * @param {boolean} attrs.includeKeys If true then includes error details in error message
+ * @returns {object} Data fetched from endpoint
+ */
+async function fetchEndpointData(
+  serviceInstance,
+  { url, errorMessages, validationPrettyErrorMessage, includeKeys }
+) {
+  const json = await serviceInstance._requestJson({
+    schema: anySchema,
+    url,
+    errorMessages,
+    options: { decompress: true },
+  })
+  return validateEndpointData(json, {
+    prettyErrorMessage: validationPrettyErrorMessage,
+    includeKeys,
+  })
+}
+
+export { validateEndpointData, fetchEndpointData }
+</code></pre>
+        </article>
+    </section>
 
 
 
