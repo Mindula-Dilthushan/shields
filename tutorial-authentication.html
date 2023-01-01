@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: performance-testing</title>
+    <title>JSDoc: Tutorial: authentication</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,52 +17,24 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: performance-testing</h1>
+    <h1 class="page-title">Tutorial: authentication</h1>
 
     <section>
 
 <header>
     
 
-    <h2>performance-testing</h2>
+    <h2>authentication</h2>
 </header>
 
 <article>
-    <h1>Performance testing</h1>
-<p>Shields has some basic tooling available to help you get started with
-performance testing.</p>
-<h2>Benchmarking the badge generation</h2>
-<p>Want to micro-benchmark a section of the code responsible for generating the
-static badges? Follow these two simple steps:</p>
+    <h1>Badges Requiring Authentication</h1>
+<p>There are two patterns for how shields.io can interact with APIs that require auth:</p>
 <ol>
-<li>Surround the code you want to time with <code>console.time</code> and <code>console.timeEnd</code>
-statements. For example:</li>
+<li>We can store one token at the service level which allows us to read public data for everyone's projects, or lift a rate limit. If you are looking for information on configuring credentials for a self-hosted instance see https://github.com/badges/shields/blob/master/doc/server-secrets.md</li>
+<li>If every user needs to provide their own token, that has to be a token which can be passed to us as a query param in the badge URL. This means it must be possible to generate a key or token that can be exposed in a public github README public with no negative consequences. (i.e: that key or token only exposes public metrics).</li>
 </ol>
-<pre class="prettyprint source"><code>console.time('makeBadge')
-const svg = makeBadge(badgeData)
-console.timeEnd('makeBadge')
-</code></pre>
-<ol start="2">
-<li>Run <code>npm run benchmark:badge</code> in your terminal. An average timing will
-be displayed!</li>
-</ol>
-<p>If you want to change the number of iterations in the benchmark, you can modify
-the values specified by the <code>benchmark:badge</code> script in <em>package.json</em>. If
-you want to benchmark a specific code path not covered by the static badge, you
-can modify the badge URL in <em>scripts/benchmark-performance.js</em>.</p>
-<h2>Profiling the full code</h2>
-<p>Want to have an overview of how the entire application is performing? Simply
-run <code>npm run profile:server</code> in your terminal. This will start the
-backend server (i.e. without the frontend) in profiling mode and any requests
-you make on <code>localhost:8080</code> will generate data in a file with a name
-similar to <em>isolate-00000244AB6ED3B0-11920-v8.log</em>.</p>
-<p>You can then make use of this profiling data in various tools, for example
-<a href="https://github.com/mapbox/flamebearer">flamebearer</a>:</p>
-<pre class="prettyprint source"><code>npm install -g flamebearer
-node --prof-process --preprocess -j isolate-00000244AB6ED3B0-11920-v8.log | flamebearer
-</code></pre>
-<p>An example output is the following:
-<img src="https://raw.github.com/badges/shields/master/doc/flamegraph.png" alt=""></p>
+<p>If every user would need to supply their own token for some particular service and it is only possible to generate a key or token which allows access to sensitive data or allows write access to resources, we can't provide an integration for this service.</p>
 </article>
 
 </section>

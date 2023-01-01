@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: performance-testing</title>
+    <title>JSDoc: Tutorial: static-badges</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,52 +17,27 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: performance-testing</h1>
+    <h1 class="page-title">Tutorial: static-badges</h1>
 
     <section>
 
 <header>
     
 
-    <h2>performance-testing</h2>
+    <h2>static-badges</h2>
 </header>
 
 <article>
-    <h1>Performance testing</h1>
-<p>Shields has some basic tooling available to help you get started with
-performance testing.</p>
-<h2>Benchmarking the badge generation</h2>
-<p>Want to micro-benchmark a section of the code responsible for generating the
-static badges? Follow these two simple steps:</p>
-<ol>
-<li>Surround the code you want to time with <code>console.time</code> and <code>console.timeEnd</code>
-statements. For example:</li>
-</ol>
-<pre class="prettyprint source"><code>console.time('makeBadge')
-const svg = makeBadge(badgeData)
-console.timeEnd('makeBadge')
-</code></pre>
-<ol start="2">
-<li>Run <code>npm run benchmark:badge</code> in your terminal. An average timing will
-be displayed!</li>
-</ol>
-<p>If you want to change the number of iterations in the benchmark, you can modify
-the values specified by the <code>benchmark:badge</code> script in <em>package.json</em>. If
-you want to benchmark a specific code path not covered by the static badge, you
-can modify the badge URL in <em>scripts/benchmark-performance.js</em>.</p>
-<h2>Profiling the full code</h2>
-<p>Want to have an overview of how the entire application is performing? Simply
-run <code>npm run profile:server</code> in your terminal. This will start the
-backend server (i.e. without the frontend) in profiling mode and any requests
-you make on <code>localhost:8080</code> will generate data in a file with a name
-similar to <em>isolate-00000244AB6ED3B0-11920-v8.log</em>.</p>
-<p>You can then make use of this profiling data in various tools, for example
-<a href="https://github.com/mapbox/flamebearer">flamebearer</a>:</p>
-<pre class="prettyprint source"><code>npm install -g flamebearer
-node --prof-process --preprocess -j isolate-00000244AB6ED3B0-11920-v8.log | flamebearer
-</code></pre>
-<p>An example output is the following:
-<img src="https://raw.github.com/badges/shields/master/doc/flamegraph.png" alt=""></p>
+    <h1>Static Badges</h1>
+<p>It is possible to use shields.io to make a wide variety of badges displaying static text and/or logos. For example:</p>
+<ul>
+<li><img src="https://img.shields.io/badge/any%20text-you%20like-blue" alt="any text you like"> - https://img.shields.io/badge/any%20text-you%20like-blue</li>
+<li><img src="https://img.shields.io/badge/just%20the%20message-8A2BE2" alt="just the message"> - https://img.shields.io/badge/just%20the%20message-8A2BE2</li>
+<li><img src="https://img.shields.io/badge/%27for%20the%20badge%27%20style-20B2AA?style=for-the-badge" alt="'for the badge' style"> - https://img.shields.io/badge/%27for%20the%20badge%27%20style-20B2AA?style=for-the-badge</li>
+<li><img src="https://img.shields.io/badge/with%20a%20logo-grey?style=for-the-badge&amp;logo=javascript" alt="with a logo"> - https://img.shields.io/badge/with%20a%20logo-grey?style=for-the-badge&amp;logo=javascript</li>
+</ul>
+<p>Full documentation of styles and parameters: https://shields.io/#styles</p>
+<p>More documentation on logos: https://github.com/badges/shields/blob/master/doc/logos.md</p>
 </article>
 
 </section>
