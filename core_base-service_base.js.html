@@ -49,6 +49,7 @@ import {
 } from './errors.js'
 import { validateExample, transformExample } from './examples.js'
 import { fetch } from './got.js'
+import { getEnum } from './openapi.js'
 import {
   makeFullUrl,
   assertValidRoute,
@@ -72,7 +73,7 @@ const optionalStringWhenNamedLogoPresent = Joi.alternatives().conditional(
   {
     is: Joi.string().required(),
     then: Joi.string(),
-  }
+  },
 )
 
 const optionalNumberWhenAnyLogoPresent = Joi.alternatives()
@@ -128,6 +129,26 @@ class BaseService {
    */
   static get route() {
     throw new Error(`Route not defined for ${this.name}`)
+  }
+
+  /**
+   * Extract an array of allowed values from this service's route pattern
+   * for a given route parameter
+   *
+   * @param {string} param The name of a param in this service's route pattern
+   * @returns {string[]} Array of allowed values for this param
+   */
+  static getEnum(param) {
+    if (!('pattern' in this.route)) {
+      throw new Error('getEnum() requires route to have a .pattern property')
+    }
+    const enumeration = getEnum(this.route.pattern, param)
+    if (!Array.isArray(enumeration)) {
+      throw new Error(
+        `Could not extract enum for param ${param} from pattern ${this.route.pattern}`,
+      )
+    }
+    return enumeration
   }
 
   /**
@@ -211,12 +232,28 @@ class BaseService {
     Joi.assert(
       this.defaultBadgeData,
       defaultBadgeDataSchema,
-      `Default badge data for ${this.name}`
+      `Default badge data for ${this.name}`,
     )
 
     this.examples.forEach((example, index) =>
-      validateExample(example, index, this)
+      validateExample(example, index, this),
     )
+
+    // ensure openApi spec matches route
+    if (this.openApi) {
+      const preparedRoute = prepareRoute(this.route)
+      for (const [key, value] of Object.entries(this.openApi)) {
+        let example = key
+        for (const param of value.get.parameters) {
+          example = example.replace(`{${param.name}}`, param.example)
+        }
+        if (!example.match(preparedRoute.regex)) {
+          throw new Error(
+            `Inconsistent Open Api spec and Route found for service ${this.name}`,
+          )
+        }
+      }
+    }
   }
 
   static getDefinition() {
@@ -225,7 +262,7 @@ class BaseService {
     const queryParams = getQueryParamNames(this.route)
 
     const examples = this.examples.map((example, index) =>
-      transformExample(example, index, this)
+      transformExample(example, index, this),
     )
 
     let route
@@ -246,7 +283,7 @@ class BaseService {
 
   constructor(
     { requestFetcher, authHelper, metricHelper },
-    { handleInternalErrors }
+    { handleInternalErrors },
   ) {
     this._requestFetcher = requestFetcher
     this.authHelper = authHelper
@@ -254,7 +291,7 @@ class BaseService {
     this._metricHelper = metricHelper
   }
 
-  async _request({ url, options = {}, errorMessages = {} }) {
+  async _request({ url, options = {}, httpErrors = {}, systemErrors = {} }) {
     const logTrace = (...args) => trace.logTrace('fetch', ...args)
     let logUrl = url
     const logOptions = Object.assign({}, options)
@@ -262,9 +299,9 @@ class BaseService {
       const params = new URLSearchParams(
         Object.fromEntries(
           Object.entries(options.searchParams).filter(
-            ([k, v]) => v !== undefined
-          )
-        )
+            ([k, v]) => v !== undefined,
+          ),
+        ),
       )
       logUrl = `${url}?${params.toString()}`
       delete logOptions.searchParams
@@ -272,12 +309,16 @@ class BaseService {
     logTrace(
       emojic.bowAndArrow,
       'Request',
-      `${logUrl}\n${JSON.stringify(logOptions, null, 2)}`
+      `${logUrl}\n${JSON.stringify(logOptions, null, 2)}`,
     )
-    const { res, buffer } = await this._requestFetcher(url, options)
+    const { res, buffer } = await this._requestFetcher(
+      url,
+      options,
+      systemErrors,
+    )
     await this._meterResponse(res, buffer)
     logTrace(emojic.dart, 'Response status code', res.statusCode)
-    return checkErrorResponse(errorMessages)({ buffer, res })
+    return checkErrorResponse(httpErrors)({ buffer, res })
   }
 
   static enabledMetrics = []
@@ -303,7 +344,7 @@ class BaseService {
       prettyErrorMessage = 'invalid response data',
       includeKeys = false,
       allowAndStripUnknownKeys = true,
-    } = {}
+    } = {},
   ) {
     return validate(
       {
@@ -315,7 +356,7 @@ class BaseService {
         allowAndStripUnknownKeys,
       },
       data,
-      schema
+      schema,
     )
   }
 
@@ -356,18 +397,22 @@ class BaseService {
       error instanceof Deprecated
     ) {
       trace.logTrace('outbound', emojic.noGoodWoman, 'Handled error', error)
-      return {
+      const serviceData = {
         isError: true,
         message: error.prettyMessage,
         color: 'lightgray',
       }
+      if (error.cacheSeconds !== undefined) {
+        serviceData.cacheSeconds = error.cacheSeconds
+      }
+      return serviceData
     } else if (this._handleInternalErrors) {
       if (
         !trace.logTrace(
           'unhandledError',
           emojic.boom,
           'Unhandled internal error',
-          error
+          error,
         )
       ) {
         // This is where we end up if an unhandled exception is thrown in
@@ -385,7 +430,7 @@ class BaseService {
         'unhandledError',
         emojic.boom,
         'Unhandled internal error',
-        error
+        error,
       )
       throw error
     }
@@ -395,7 +440,7 @@ class BaseService {
     context = {},
     config = {},
     namedParams = {},
-    queryParams = {}
+    queryParams = {},
   ) {
     trace.logTrace('inbound', emojic.womanCook, 'Service class', this.name)
     trace.logTrace('inbound', emojic.ticket, 'Named params', namedParams)
@@ -429,13 +474,13 @@ class BaseService {
             traceSuccessMessage: 'Query params after validation',
           },
           queryParams,
-          queryParamSchema
+          queryParamSchema,
         )
         trace.logTrace(
           'inbound',
           emojic.crayon,
           'Query params after validation',
-          queryParams
+          queryParams,
         )
       } catch (error) {
         serviceError = error
@@ -449,7 +494,7 @@ class BaseService {
       try {
         serviceData = await serviceInstance.handle(
           namedParams,
-          transformedQueryParams
+          transformedQueryParams,
         )
         serviceInstance._validateServiceData(serviceData)
       } catch (error) {
@@ -474,7 +519,7 @@ class BaseService {
       librariesIoApiProvider,
       metricInstance,
     },
-    serviceConfig
+    serviceConfig,
   ) {
     const { cacheHeaders: cacheHeaderConfig } = serviceConfig
     const { regex, captureNames } = prepareRoute(this.route)
@@ -502,14 +547,14 @@ class BaseService {
             },
             serviceConfig,
             namedParams,
-            queryParams
+            queryParams,
           )
 
           const badgeData = coalesceBadge(
             queryParams,
             serviceData,
             this.defaultBadgeData,
-            this
+            this,
           )
           // The final capture group is the extension.
           const format = (match.slice(-1)[0] || '.svg').replace(/^\./, '')
@@ -518,7 +563,7 @@ class BaseService {
           metricHandle.noteResponseSent()
         },
         cacheLength: this._cacheLength,
-      })
+      }),
     )
   }
 }
@@ -628,13 +673,13 @@ export default BaseService
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-badge-maker.html">badge-maker</a></li><li><a href="module-badge-maker_lib_xml.html">badge-maker/lib/xml</a></li><li><a href="module-core_base-service_base.html">core/base-service/base</a></li><li><a href="module-core_base-service_base-graphql.html">core/base-service/base-graphql</a></li><li><a href="module-core_base-service_base-json.html">core/base-service/base-json</a></li><li><a href="module-core_base-service_base-svg-scraping.html">core/base-service/base-svg-scraping</a></li><li><a href="module-core_base-service_base-xml.html">core/base-service/base-xml</a></li><li><a href="module-core_base-service_base-yaml.html">core/base-service/base-yaml</a></li><li><a href="module-core_base-service_errors.html">core/base-service/errors</a></li><li><a href="module-core_base-service_graphql.html">core/base-service/graphql</a></li><li><a href="module-core_base-service_resource-cache.html">core/base-service/resource-cache</a></li><li><a href="module-core_server_server.html">core/server/server</a></li><li><a href="module-core_service-test-runner_create-service-tester.html">core/service-test-runner/create-service-tester</a></li><li><a href="module-core_service-test-runner_icedfrisby-shields.html">core/service-test-runner/icedfrisby-shields</a></li><li><a href="module-core_service-test-runner_runner.html">core/service-test-runner/runner</a></li><li><a href="module-core_service-test-runner_service-tester.html">core/service-test-runner/service-tester</a></li><li><a href="module-core_service-test-runner_services-for-title.html">core/service-test-runner/services-for-title</a></li><li><a href="module-core_token-pooling_token-pool.html">core/token-pooling/token-pool</a></li><li><a href="module-services_build-status.html">services/build-status</a></li><li><a href="module-services_color-formatters.html">services/color-formatters</a></li><li><a href="module-services_contributor-count.html">services/contributor-count</a></li><li><a href="module-services_downloads.html">services/downloads</a></li><li><a href="module-services_dynamic-common.html">services/dynamic-common</a></li><li><a href="module-services_dynamic_json-path.html">services/dynamic/json-path</a></li><li><a href="module-services_endpoint-common.html">services/endpoint-common</a></li><li><a href="module-services_licenses.html">services/licenses</a></li><li><a href="module-services_package-json-helpers.html">services/package-json-helpers</a></li><li><a href="module-services_php-version.html">services/php-version</a></li><li><a href="module-services_pipenv-helpers.html">services/pipenv-helpers</a></li><li><a href="module-services_route-builder.html">services/route-builder</a></li><li><a href="module-services_steam_steam-base.html">services/steam/steam-base</a></li></ul><h3>Classes</h3><ul><li><a href="module-badge-maker_lib_xml-ElementList.html">ElementList</a></li><li><a href="module-badge-maker_lib_xml-XmlElement.html">XmlElement</a></li><li><a href="module-core_base-service_base-graphql-BaseGraphqlService.html">BaseGraphqlService</a></li><li><a href="module-core_base-service_base-json-BaseJsonService.html">BaseJsonService</a></li><li><a href="module-core_base-service_base-svg-scraping-BaseSvgScrapingService.html">BaseSvgScrapingService</a></li><li><a href="module-core_base-service_base-xml-BaseXmlService.html">BaseXmlService</a></li><li><a href="module-core_base-service_base-yaml-BaseYamlService.html">BaseYamlService</a></li><li><a href="module-core_base-service_base-BaseService.html">BaseService</a></li><li><a href="module-core_base-service_errors-Deprecated.html">Deprecated</a></li><li><a href="module-core_base-service_errors-ImproperlyConfigured.html">ImproperlyConfigured</a></li><li><a href="module-core_base-service_errors-Inaccessible.html">Inaccessible</a></li><li><a href="module-core_base-service_errors-InvalidParameter.html">InvalidParameter</a></li><li><a href="module-core_base-service_errors-InvalidResponse.html">InvalidResponse</a></li><li><a href="module-core_base-service_errors-NotFound.html">NotFound</a></li><li><a href="module-core_base-service_errors-ShieldsRuntimeError.html">ShieldsRuntimeError</a></li><li><a href="module-core_server_server-Server.html">Server</a></li><li><a href="module-core_service-test-runner_runner-Runner.html">Runner</a></li><li><a href="module-core_service-test-runner_service-tester-ServiceTester.html">ServiceTester</a></li><li><a href="module-core_token-pooling_token-pool-Token.html">Token</a></li><li><a href="module-core_token-pooling_token-pool-TokenPool.html">TokenPool</a></li><li><a href="module-services_route-builder.html">services/route-builder</a></li><li><a href="module-services_steam_steam-base-BaseSteamAPI.html">BaseSteamAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-TUTORIAL.html">TUTORIAL</a></li><li><a href="tutorial-adding-new-config-values.html">adding-new-config-values</a></li><li><a href="tutorial-authentication.html">authentication</a></li><li><a href="tutorial-badge-urls.html">badge-urls</a></li><li><a href="tutorial-code-walkthrough.html">code-walkthrough</a></li><li><a href="tutorial-deprecating-badges.html">deprecating-badges</a></li><li><a href="tutorial-input-validation.html">input-validation</a></li><li><a href="tutorial-json-format.html">json-format</a></li><li><a href="tutorial-logos.html">logos</a></li><li><a href="tutorial-performance-testing.html">performance-testing</a></li><li><a href="tutorial-production-hosting.html">production-hosting</a></li><li><a href="tutorial-releases.html">releases</a></li><li><a href="tutorial-self-hosting.html">self-hosting</a></li><li><a href="tutorial-server-secrets.html">server-secrets</a></li><li><a href="tutorial-service-tests.html">service-tests</a></li><li><a href="tutorial-static-badges.html">static-badges</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createNumRequestCounter">createNumRequestCounter</a></li><li><a href="global.html#isMetricWithPattern">isMetricWithPattern</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-badge-maker.html">badge-maker</a></li><li><a href="module-badge-maker_lib_xml.html">badge-maker/lib/xml</a></li><li><a href="module-core_base-service_base.html">core/base-service/base</a></li><li><a href="module-core_base-service_base-graphql.html">core/base-service/base-graphql</a></li><li><a href="module-core_base-service_base-json.html">core/base-service/base-json</a></li><li><a href="module-core_base-service_base-svg-scraping.html">core/base-service/base-svg-scraping</a></li><li><a href="module-core_base-service_base-toml.html">core/base-service/base-toml</a></li><li><a href="module-core_base-service_base-xml.html">core/base-service/base-xml</a></li><li><a href="module-core_base-service_base-yaml.html">core/base-service/base-yaml</a></li><li><a href="module-core_base-service_errors.html">core/base-service/errors</a></li><li><a href="module-core_base-service_graphql.html">core/base-service/graphql</a></li><li><a href="module-core_base-service_openapi.html">core/base-service/openapi</a></li><li><a href="module-core_base-service_resource-cache.html">core/base-service/resource-cache</a></li><li><a href="module-core_server_server.html">core/server/server</a></li><li><a href="module-core_service-test-runner_create-service-tester.html">core/service-test-runner/create-service-tester</a></li><li><a href="module-core_service-test-runner_icedfrisby-shields.html">core/service-test-runner/icedfrisby-shields</a></li><li><a href="module-core_service-test-runner_runner.html">core/service-test-runner/runner</a></li><li><a href="module-core_service-test-runner_service-tester.html">core/service-test-runner/service-tester</a></li><li><a href="module-core_service-test-runner_services-for-title.html">core/service-test-runner/services-for-title</a></li><li><a href="module-core_token-pooling_token-pool.html">core/token-pooling/token-pool</a></li><li><a href="module-services_build-status.html">services/build-status</a></li><li><a href="module-services_color-formatters.html">services/color-formatters</a></li><li><a href="module-services_contributor-count.html">services/contributor-count</a></li><li><a href="module-services_downloads.html">services/downloads</a></li><li><a href="module-services_dynamic-common.html">services/dynamic-common</a></li><li><a href="module-services_dynamic_json-path.html">services/dynamic/json-path</a></li><li><a href="module-services_endpoint-common.html">services/endpoint-common</a></li><li><a href="module-services_licenses.html">services/licenses</a></li><li><a href="module-services_package-json-helpers.html">services/package-json-helpers</a></li><li><a href="module-services_php-version.html">services/php-version</a></li><li><a href="module-services_pipenv-helpers.html">services/pipenv-helpers</a></li><li><a href="module-services_route-builder.html">services/route-builder</a></li><li><a href="module-services_steam_steam-base.html">services/steam/steam-base</a></li><li><a href="module-services_text-formatters.html">services/text-formatters</a></li><li><a href="module-services_validators.html">services/validators</a></li><li><a href="module-services_version.html">services/version</a></li><li><a href="module-services_website-status.html">services/website-status</a></li></ul><h3>Classes</h3><ul><li><a href="module-badge-maker_lib_xml-ElementList.html">ElementList</a></li><li><a href="module-badge-maker_lib_xml-XmlElement.html">XmlElement</a></li><li><a href="module-core_base-service_base-graphql-BaseGraphqlService.html">BaseGraphqlService</a></li><li><a href="module-core_base-service_base-json-BaseJsonService.html">BaseJsonService</a></li><li><a href="module-core_base-service_base-svg-scraping-BaseSvgScrapingService.html">BaseSvgScrapingService</a></li><li><a href="module-core_base-service_base-toml-BaseTomlService.html">BaseTomlService</a></li><li><a href="module-core_base-service_base-xml-BaseXmlService.html">BaseXmlService</a></li><li><a href="module-core_base-service_base-yaml-BaseYamlService.html">BaseYamlService</a></li><li><a href="module-core_base-service_base-BaseService.html">BaseService</a></li><li><a href="module-core_base-service_errors-Deprecated.html">Deprecated</a></li><li><a href="module-core_base-service_errors-ImproperlyConfigured.html">ImproperlyConfigured</a></li><li><a href="module-core_base-service_errors-Inaccessible.html">Inaccessible</a></li><li><a href="module-core_base-service_errors-InvalidParameter.html">InvalidParameter</a></li><li><a href="module-core_base-service_errors-InvalidResponse.html">InvalidResponse</a></li><li><a href="module-core_base-service_errors-NotFound.html">NotFound</a></li><li><a href="module-core_base-service_errors-ShieldsRuntimeError.html">ShieldsRuntimeError</a></li><li><a href="module-core_server_server-Server.html">Server</a></li><li><a href="module-core_service-test-runner_runner-Runner.html">Runner</a></li><li><a href="module-core_service-test-runner_service-tester-ServiceTester.html">ServiceTester</a></li><li><a href="module-core_token-pooling_token-pool-Token.html">Token</a></li><li><a href="module-core_token-pooling_token-pool-TokenPool.html">TokenPool</a></li><li><a href="module-services_route-builder.html">services/route-builder</a></li><li><a href="module-services_steam_steam-base-BaseSteamAPI.html">BaseSteamAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-TUTORIAL.html">TUTORIAL</a></li><li><a href="tutorial-adding-new-config-values.html">adding-new-config-values</a></li><li><a href="tutorial-authentication.html">authentication</a></li><li><a href="tutorial-badge-urls.html">badge-urls</a></li><li><a href="tutorial-code-walkthrough.html">code-walkthrough</a></li><li><a href="tutorial-deprecating-badges.html">deprecating-badges</a></li><li><a href="tutorial-input-validation.html">input-validation</a></li><li><a href="tutorial-json-format.html">json-format</a></li><li><a href="tutorial-logos.html">logos</a></li><li><a href="tutorial-performance-testing.html">performance-testing</a></li><li><a href="tutorial-production-hosting.html">production-hosting</a></li><li><a href="tutorial-releases.html">releases</a></li><li><a href="tutorial-self-hosting.html">self-hosting</a></li><li><a href="tutorial-server-secrets.html">server-secrets</a></li><li><a href="tutorial-service-tests.html">service-tests</a></li><li><a href="tutorial-static-badges.html">static-badges</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createNumRequestCounter">createNumRequestCounter</a></li><li><a href="global.html#isMetricWithPattern">isMetricWithPattern</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri May 19 2023 02:08:43 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Nov 01 2023 03:31:01 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -49,13 +49,13 @@ const isVPlusDottedVersionNClauses = withRegex(/^v\d+(\.\d+)*$/)
 // and an optional text suffix
 // e.g: -beta, -preview1, -release-candidate, +beta, ~pre9-12 etc
 const isVPlusDottedVersionNClausesWithOptionalSuffix = withRegex(
-  /^v\d+(\.\d+)*([-+~].*)?$/
+  /^v\d+(\.\d+)*([-+~].*)?$/,
 )
 
 // same as above, but also accepts an optional 'epoch' prefix that can be
 // found e.g. in distro package versions, like 4:6.3.0-4
 const isVPlusDottedVersionNClausesWithOptionalSuffixAndEpoch = withRegex(
-  /^v(\d+:)?\d+(\.\d+)*([-+~].*)?$/
+  /^v(\d+:)?\d+(\.\d+)*([-+~].*)?$/,
 )
 
 // Simple regex for test Composer versions rule
@@ -71,7 +71,7 @@ const isVPlusDottedVersionNClausesWithOptionalSuffixAndEpoch = withRegex(
 // https://getcomposer.org/doc/04-schema.md#package-links
 // https://getcomposer.org/doc/04-schema.md#minimum-stability
 const isComposerVersion = withRegex(
-  /^\*|(\s*(>=|>|&lt;|&lt;=|!=|\^|~)?\d+(\.(\*|(\d+(\.(\d+|\*))?)))?((\s*\|*)?\s*(>=|>|&lt;|&lt;=|!=|\^|~)?\d+(\.(\*|(\d+(\.(\d+|\*))?)))?)*\s*)$/
+  /^\*|(\s*(>=|>|&lt;|&lt;=|!=|\^|~)?\d+(\.(\*|(\d+(\.(\d+|\*))?)))?((\s*\|*)?\s*(>=|>|&lt;|&lt;=|!=|\^|~)?\d+(\.(\*|(\d+(\.(\d+|\*))?)))?)*\s*)$/,
 )
 
 // Regex for validate php-version.versionReduction()
@@ -80,11 +80,11 @@ const isComposerVersion = withRegex(
 // 5.4, 5.6, 7.2
 // 5.4 - 7.1, HHVM
 const isPhpVersionReduction = withRegex(
-  /^((>= \d+(\.\d+)?)|(\d+\.\d+(, \d+\.\d+)*)|(\d+\.\d+ - \d+\.\d+))(, HHVM)?$/
+  /^((>= \d+(\.\d+)?)|(\d+\.\d+(, \d+\.\d+)*)|(\d+\.\d+ - \d+\.\d+))(, HHVM)?$/,
 )
 
 const isStarRating = withRegex(
-  /^(?=.{5}$)(\u2605{0,5}[\u00BC\u00BD\u00BE]?\u2606{0,5})$/
+  /^(?=.{5}$)(\u2605{0,5}[\u00BC\u00BD\u00BE]?\u2606{0,5})$/,
 )
 
 // Required to be > 0, because accepting zero masks many problems.
@@ -92,7 +92,7 @@ const isMetric = withRegex(/^([1-9][0-9]*[kMGTPEZY]?|[1-9]\.[1-9][kMGTPEZY])$/)
 
 // Same as isMetric, but tests for negative numbers also.
 const isMetricAllowNegative = withRegex(
-  /^(0|-?[1-9][0-9]*[kMGTPEZY]?|-?[0-9]\.[0-9][kMGTPEZY])$/
+  /^(0|-?[1-9][0-9]*[kMGTPEZY]?|-?[0-9]\.[0-9][kMGTPEZY])$/,
 )
 
 /**
@@ -110,15 +110,15 @@ const isMetricOpenIssues = isMetricWithPattern(/ open/)
 const isMetricClosedIssues = isMetricWithPattern(/ closed/)
 
 const isMetricOverMetric = isMetricWithPattern(
-  /\/([1-9][0-9]*[kMGTPEZY]?|[1-9]\.[1-9][kMGTPEZY])/
+  /\/([1-9][0-9]*[kMGTPEZY]?|[1-9]\.[1-9][kMGTPEZY])/,
 )
 
 const isMetricOverTimePeriod = isMetricWithPattern(
-  /\/(year|month|four weeks|quarter|week|day)/
+  /\/(year|month|four weeks|quarter|week|day)/,
 )
 
 const isZeroOverTimePeriod = withRegex(
-  /^0\/(year|month|four weeks|quarter|week|day)$/
+  /^0\/(year|month|four weeks|quarter|week|day)$/,
 )
 
 const isIntegerPercentage = withRegex(/^[1-9][0-9]?%|^100%|^0%$/)
@@ -129,41 +129,41 @@ const isPercentage = Joi.alternatives().try(
   isIntegerPercentage,
   isDecimalPercentage,
   isIntegerPercentageNegative,
-  isDecimalPercentageNegative
+  isDecimalPercentageNegative,
 )
 
 const isFileSize = withRegex(
-  /^[0-9]*[.]?[0-9]+\s(B|kB|KB|MB|GB|TB|PB|EB|ZB|YB)$/
+  /^[0-9]*[.]?[0-9]+\s(B|kB|KB|MB|GB|TB|PB|EB|ZB|YB)$/,
 )
 
 const isFormattedDate = Joi.alternatives().try(
   Joi.equal('today', 'yesterday'),
   Joi.string().regex(/^last (sun|mon|tues|wednes|thurs|fri|satur)day$/),
   Joi.string().regex(
-    /^(january|february|march|april|may|june|july|august|september|october|november|december)( \d{4})?$/
-  )
+    /^(january|february|march|april|may|june|july|august|september|october|november|december)( \d{4})?$/,
+  ),
 )
 
 const isRelativeFormattedDate = Joi.alternatives().try(
   Joi.string().regex(
-    /^(in |)([0-9]+|a few|a|an|)(| )(second|minute|hour|day|month|year)(s|)( ago|)$/
-  )
+    /^(in |)([0-9]+|a few|a|an|)(| )(second|minute|hour|day|month|year)(s|)( ago|)$/,
+  ),
 )
 
 const isDependencyState = withRegex(
-  /^(\d+ out of date|\d+ deprecated|up to date)$/
+  /^(\d+ out of date|\d+ deprecated|up to date)$/,
 )
 
 const makeTestTotalsValidator = ({ passed, failed, skipped }) =>
   withRegex(
-    new RegExp(`^[0-9]+ ${passed}(, [0-9]+ ${failed})?(, [0-9]+ ${skipped})?$`)
+    new RegExp(`^[0-9]+ ${passed}(, [0-9]+ ${failed})?(, [0-9]+ ${skipped})?$`),
   )
 
 const makeCompactTestTotalsValidator = ({ passed, failed, skipped }) =>
   withRegex(
     new RegExp(
-      `^${passed} [0-9]+( \\| ${failed} [0-9]+)?( \\| ${skipped} [0-9]+)?$`
-    )
+      `^${passed} [0-9]+( \\| ${failed} [0-9]+)?( \\| ${skipped} [0-9]+)?$`,
+    ),
   )
 
 const isDefaultTestTotals = makeTestTotalsValidator({
@@ -189,11 +189,11 @@ const isCustomCompactTestTotals = makeCompactTestTotalsValidator({
 
 const isOrdinalNumber = Joi.string().regex(/^[1-9][0-9]*(ᵗʰ|ˢᵗ|ⁿᵈ|ʳᵈ)$/)
 const isOrdinalNumberDaily = Joi.string().regex(
-  /^[1-9][0-9]*(ᵗʰ|ˢᵗ|ⁿᵈ|ʳᵈ) daily$/
+  /^[1-9][0-9]*(ᵗʰ|ˢᵗ|ⁿᵈ|ʳᵈ) daily$/,
 )
 
 const isHumanized = Joi.string().regex(
-  /[0-9a-z]+ (second|seconds|minute|minutes|hour|hours|day|days|month|months|year|years)/
+  /[0-9a-z]+ (second|seconds|minute|minutes|hour|hours|day|days|month|months|year|years)/,
 )
 
 // $1,530,602.24 // true
@@ -203,7 +203,7 @@ const isHumanized = Joi.string().regex(
 // 1.6.66,6 // false
 // .1555. // false
 const isCurrency = withRegex(
-  /(?=.*\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|0)?(\.\d{1,2})?$/
+  /(?=.*\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|0)?(\.\d{1,2})?$/,
 )
 
 export {
@@ -253,13 +253,13 @@ export {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-badge-maker.html">badge-maker</a></li><li><a href="module-badge-maker_lib_xml.html">badge-maker/lib/xml</a></li><li><a href="module-core_base-service_base.html">core/base-service/base</a></li><li><a href="module-core_base-service_base-graphql.html">core/base-service/base-graphql</a></li><li><a href="module-core_base-service_base-json.html">core/base-service/base-json</a></li><li><a href="module-core_base-service_base-svg-scraping.html">core/base-service/base-svg-scraping</a></li><li><a href="module-core_base-service_base-xml.html">core/base-service/base-xml</a></li><li><a href="module-core_base-service_base-yaml.html">core/base-service/base-yaml</a></li><li><a href="module-core_base-service_errors.html">core/base-service/errors</a></li><li><a href="module-core_base-service_graphql.html">core/base-service/graphql</a></li><li><a href="module-core_base-service_resource-cache.html">core/base-service/resource-cache</a></li><li><a href="module-core_server_server.html">core/server/server</a></li><li><a href="module-core_service-test-runner_create-service-tester.html">core/service-test-runner/create-service-tester</a></li><li><a href="module-core_service-test-runner_icedfrisby-shields.html">core/service-test-runner/icedfrisby-shields</a></li><li><a href="module-core_service-test-runner_runner.html">core/service-test-runner/runner</a></li><li><a href="module-core_service-test-runner_service-tester.html">core/service-test-runner/service-tester</a></li><li><a href="module-core_service-test-runner_services-for-title.html">core/service-test-runner/services-for-title</a></li><li><a href="module-core_token-pooling_token-pool.html">core/token-pooling/token-pool</a></li><li><a href="module-services_build-status.html">services/build-status</a></li><li><a href="module-services_color-formatters.html">services/color-formatters</a></li><li><a href="module-services_contributor-count.html">services/contributor-count</a></li><li><a href="module-services_downloads.html">services/downloads</a></li><li><a href="module-services_dynamic-common.html">services/dynamic-common</a></li><li><a href="module-services_dynamic_json-path.html">services/dynamic/json-path</a></li><li><a href="module-services_endpoint-common.html">services/endpoint-common</a></li><li><a href="module-services_licenses.html">services/licenses</a></li><li><a href="module-services_package-json-helpers.html">services/package-json-helpers</a></li><li><a href="module-services_php-version.html">services/php-version</a></li><li><a href="module-services_pipenv-helpers.html">services/pipenv-helpers</a></li><li><a href="module-services_route-builder.html">services/route-builder</a></li><li><a href="module-services_steam_steam-base.html">services/steam/steam-base</a></li></ul><h3>Classes</h3><ul><li><a href="module-badge-maker_lib_xml-ElementList.html">ElementList</a></li><li><a href="module-badge-maker_lib_xml-XmlElement.html">XmlElement</a></li><li><a href="module-core_base-service_base-graphql-BaseGraphqlService.html">BaseGraphqlService</a></li><li><a href="module-core_base-service_base-json-BaseJsonService.html">BaseJsonService</a></li><li><a href="module-core_base-service_base-svg-scraping-BaseSvgScrapingService.html">BaseSvgScrapingService</a></li><li><a href="module-core_base-service_base-xml-BaseXmlService.html">BaseXmlService</a></li><li><a href="module-core_base-service_base-yaml-BaseYamlService.html">BaseYamlService</a></li><li><a href="module-core_base-service_base-BaseService.html">BaseService</a></li><li><a href="module-core_base-service_errors-Deprecated.html">Deprecated</a></li><li><a href="module-core_base-service_errors-ImproperlyConfigured.html">ImproperlyConfigured</a></li><li><a href="module-core_base-service_errors-Inaccessible.html">Inaccessible</a></li><li><a href="module-core_base-service_errors-InvalidParameter.html">InvalidParameter</a></li><li><a href="module-core_base-service_errors-InvalidResponse.html">InvalidResponse</a></li><li><a href="module-core_base-service_errors-NotFound.html">NotFound</a></li><li><a href="module-core_base-service_errors-ShieldsRuntimeError.html">ShieldsRuntimeError</a></li><li><a href="module-core_server_server-Server.html">Server</a></li><li><a href="module-core_service-test-runner_runner-Runner.html">Runner</a></li><li><a href="module-core_service-test-runner_service-tester-ServiceTester.html">ServiceTester</a></li><li><a href="module-core_token-pooling_token-pool-Token.html">Token</a></li><li><a href="module-core_token-pooling_token-pool-TokenPool.html">TokenPool</a></li><li><a href="module-services_route-builder.html">services/route-builder</a></li><li><a href="module-services_steam_steam-base-BaseSteamAPI.html">BaseSteamAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-TUTORIAL.html">TUTORIAL</a></li><li><a href="tutorial-adding-new-config-values.html">adding-new-config-values</a></li><li><a href="tutorial-authentication.html">authentication</a></li><li><a href="tutorial-badge-urls.html">badge-urls</a></li><li><a href="tutorial-code-walkthrough.html">code-walkthrough</a></li><li><a href="tutorial-deprecating-badges.html">deprecating-badges</a></li><li><a href="tutorial-input-validation.html">input-validation</a></li><li><a href="tutorial-json-format.html">json-format</a></li><li><a href="tutorial-logos.html">logos</a></li><li><a href="tutorial-performance-testing.html">performance-testing</a></li><li><a href="tutorial-production-hosting.html">production-hosting</a></li><li><a href="tutorial-releases.html">releases</a></li><li><a href="tutorial-self-hosting.html">self-hosting</a></li><li><a href="tutorial-server-secrets.html">server-secrets</a></li><li><a href="tutorial-service-tests.html">service-tests</a></li><li><a href="tutorial-static-badges.html">static-badges</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createNumRequestCounter">createNumRequestCounter</a></li><li><a href="global.html#isMetricWithPattern">isMetricWithPattern</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-badge-maker.html">badge-maker</a></li><li><a href="module-badge-maker_lib_xml.html">badge-maker/lib/xml</a></li><li><a href="module-core_base-service_base.html">core/base-service/base</a></li><li><a href="module-core_base-service_base-graphql.html">core/base-service/base-graphql</a></li><li><a href="module-core_base-service_base-json.html">core/base-service/base-json</a></li><li><a href="module-core_base-service_base-svg-scraping.html">core/base-service/base-svg-scraping</a></li><li><a href="module-core_base-service_base-toml.html">core/base-service/base-toml</a></li><li><a href="module-core_base-service_base-xml.html">core/base-service/base-xml</a></li><li><a href="module-core_base-service_base-yaml.html">core/base-service/base-yaml</a></li><li><a href="module-core_base-service_errors.html">core/base-service/errors</a></li><li><a href="module-core_base-service_graphql.html">core/base-service/graphql</a></li><li><a href="module-core_base-service_openapi.html">core/base-service/openapi</a></li><li><a href="module-core_base-service_resource-cache.html">core/base-service/resource-cache</a></li><li><a href="module-core_server_server.html">core/server/server</a></li><li><a href="module-core_service-test-runner_create-service-tester.html">core/service-test-runner/create-service-tester</a></li><li><a href="module-core_service-test-runner_icedfrisby-shields.html">core/service-test-runner/icedfrisby-shields</a></li><li><a href="module-core_service-test-runner_runner.html">core/service-test-runner/runner</a></li><li><a href="module-core_service-test-runner_service-tester.html">core/service-test-runner/service-tester</a></li><li><a href="module-core_service-test-runner_services-for-title.html">core/service-test-runner/services-for-title</a></li><li><a href="module-core_token-pooling_token-pool.html">core/token-pooling/token-pool</a></li><li><a href="module-services_build-status.html">services/build-status</a></li><li><a href="module-services_color-formatters.html">services/color-formatters</a></li><li><a href="module-services_contributor-count.html">services/contributor-count</a></li><li><a href="module-services_downloads.html">services/downloads</a></li><li><a href="module-services_dynamic-common.html">services/dynamic-common</a></li><li><a href="module-services_dynamic_json-path.html">services/dynamic/json-path</a></li><li><a href="module-services_endpoint-common.html">services/endpoint-common</a></li><li><a href="module-services_licenses.html">services/licenses</a></li><li><a href="module-services_package-json-helpers.html">services/package-json-helpers</a></li><li><a href="module-services_php-version.html">services/php-version</a></li><li><a href="module-services_pipenv-helpers.html">services/pipenv-helpers</a></li><li><a href="module-services_route-builder.html">services/route-builder</a></li><li><a href="module-services_steam_steam-base.html">services/steam/steam-base</a></li><li><a href="module-services_text-formatters.html">services/text-formatters</a></li><li><a href="module-services_validators.html">services/validators</a></li><li><a href="module-services_version.html">services/version</a></li><li><a href="module-services_website-status.html">services/website-status</a></li></ul><h3>Classes</h3><ul><li><a href="module-badge-maker_lib_xml-ElementList.html">ElementList</a></li><li><a href="module-badge-maker_lib_xml-XmlElement.html">XmlElement</a></li><li><a href="module-core_base-service_base-graphql-BaseGraphqlService.html">BaseGraphqlService</a></li><li><a href="module-core_base-service_base-json-BaseJsonService.html">BaseJsonService</a></li><li><a href="module-core_base-service_base-svg-scraping-BaseSvgScrapingService.html">BaseSvgScrapingService</a></li><li><a href="module-core_base-service_base-toml-BaseTomlService.html">BaseTomlService</a></li><li><a href="module-core_base-service_base-xml-BaseXmlService.html">BaseXmlService</a></li><li><a href="module-core_base-service_base-yaml-BaseYamlService.html">BaseYamlService</a></li><li><a href="module-core_base-service_base-BaseService.html">BaseService</a></li><li><a href="module-core_base-service_errors-Deprecated.html">Deprecated</a></li><li><a href="module-core_base-service_errors-ImproperlyConfigured.html">ImproperlyConfigured</a></li><li><a href="module-core_base-service_errors-Inaccessible.html">Inaccessible</a></li><li><a href="module-core_base-service_errors-InvalidParameter.html">InvalidParameter</a></li><li><a href="module-core_base-service_errors-InvalidResponse.html">InvalidResponse</a></li><li><a href="module-core_base-service_errors-NotFound.html">NotFound</a></li><li><a href="module-core_base-service_errors-ShieldsRuntimeError.html">ShieldsRuntimeError</a></li><li><a href="module-core_server_server-Server.html">Server</a></li><li><a href="module-core_service-test-runner_runner-Runner.html">Runner</a></li><li><a href="module-core_service-test-runner_service-tester-ServiceTester.html">ServiceTester</a></li><li><a href="module-core_token-pooling_token-pool-Token.html">Token</a></li><li><a href="module-core_token-pooling_token-pool-TokenPool.html">TokenPool</a></li><li><a href="module-services_route-builder.html">services/route-builder</a></li><li><a href="module-services_steam_steam-base-BaseSteamAPI.html">BaseSteamAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-TUTORIAL.html">TUTORIAL</a></li><li><a href="tutorial-adding-new-config-values.html">adding-new-config-values</a></li><li><a href="tutorial-authentication.html">authentication</a></li><li><a href="tutorial-badge-urls.html">badge-urls</a></li><li><a href="tutorial-code-walkthrough.html">code-walkthrough</a></li><li><a href="tutorial-deprecating-badges.html">deprecating-badges</a></li><li><a href="tutorial-input-validation.html">input-validation</a></li><li><a href="tutorial-json-format.html">json-format</a></li><li><a href="tutorial-logos.html">logos</a></li><li><a href="tutorial-performance-testing.html">performance-testing</a></li><li><a href="tutorial-production-hosting.html">production-hosting</a></li><li><a href="tutorial-releases.html">releases</a></li><li><a href="tutorial-self-hosting.html">self-hosting</a></li><li><a href="tutorial-server-secrets.html">server-secrets</a></li><li><a href="tutorial-service-tests.html">service-tests</a></li><li><a href="tutorial-static-badges.html">static-badges</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createNumRequestCounter">createNumRequestCounter</a></li><li><a href="global.html#isMetricWithPattern">isMetricWithPattern</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri May 19 2023 02:08:43 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Nov 01 2023 03:31:01 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
