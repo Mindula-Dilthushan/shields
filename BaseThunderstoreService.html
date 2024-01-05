@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: services/endpoint-common</title>
+    <title>JSDoc: Class: BaseThunderstoreService</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: services/endpoint-common</h1>
+    <h1 class="page-title">Class: BaseThunderstoreService</h1>
 
     
 
@@ -28,16 +28,40 @@
 
 <header>
     
+        <h2><span class="attribs"><span class="type-signature">(abstract) </span></span>BaseThunderstoreService<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>Services which query Thunderstore endpoints should extend BaseThunderstoreService</p></div>
+        
+    
 </header>
 
 <article>
     <div class="container-overview">
     
         
-            <div class="description"><p>Common functions and utilities for tasks related to endpoint badges.</p></div>
-        
 
-        
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="BaseThunderstoreService"><span class="type-signature">(abstract) </span>new BaseThunderstoreService<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -69,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_endpoint-common.js.html">services/endpoint-common.js</a>, <a href="services_endpoint-common.js.html#line1">line 1</a>
+        <a href="services_thunderstore_thunderstore-base.js.html">services/thunderstore/thunderstore-base.js</a>, <a href="services_thunderstore_thunderstore-base.js.html#line59">line 59</a>
     </li></ul></dd>
     
 
@@ -81,7 +105,24 @@
 </dl>
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     </div>
 
@@ -98,82 +139,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~endpointSchema"><span class="type-signature">(inner, constant) </span>endpointSchema<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi schema for validating endpoint.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Joi</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_endpoint-common.js.html">services/endpoint-common.js</a>, <a href="services_endpoint-common.js.html#line28">line 28</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -184,7 +149,7 @@
     
 
     
-    <h4 class="name" id="~fetchEndpointData"><span class="type-signature">(async, inner) </span>fetchEndpointData<span class="signature">(serviceInstance, attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="fetchPackage"><span class="type-signature">(async) </span>fetchPackage<span class="signature">(pkg)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
     
 
     
@@ -192,7 +157,7 @@
 
 
 <div class="description">
-    <p>Fetches data from the endpoint and validates the data.</p>
+    <p>Fetches package metadata from the Thunderstore API.</p>
 </div>
 
 
@@ -228,7 +193,7 @@
 
         <tr>
             
-                <td class="name"><code>serviceInstance</code></td>
+                <td class="name"><code>pkg</code></td>
             
 
             <td class="type">
@@ -244,30 +209,7 @@
 
             
 
-            <td class="description last"><p>Instance of Endpoint class</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Refer to individual attributes</p>
+            <td class="description last"><p>Package specifier</p>
                 <h6>Properties</h6>
                 
 
@@ -293,7 +235,7 @@
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>namespace</code></td>
             
 
             <td class="type">
@@ -309,37 +251,14 @@
 
             
 
-            <td class="description last"><p>Endpoint URL</p></td>
+            <td class="description last"><p>the package namespace</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>httpErrors</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Object containing error messages for different error codes</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>validationPrettyErrorMessage</code></td>
+                <td class="name"><code>packageName</code></td>
             
 
             <td class="type">
@@ -355,30 +274,7 @@
 
             
 
-            <td class="description last"><p>If provided then the error message is set to this value</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>includeKeys</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>If true then includes error details in error message</p></td>
+            <td class="description last"><p>the package name</p></td>
         </tr>
 
     
@@ -426,7 +322,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_endpoint-common.js.html">services/endpoint-common.js</a>, <a href="services_endpoint-common.js.html#line90">line 90</a>
+        <a href="services_thunderstore_thunderstore-base.js.html">services/thunderstore/thunderstore-base.js</a>, <a href="services_thunderstore_thunderstore-base.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -455,7 +351,9 @@
 
         
 <div class="param-desc">
-    <p>Data fetched from endpoint</p>
+    <ul>
+<li>Promise containing validated package information</li>
+</ul>
 </div>
 
 
@@ -466,7 +364,7 @@
     </dt>
     <dd>
         
-<span class="param-type">object</span>
+<span class="param-type">Promise.&lt;object></span>
 
 
     </dd>
@@ -484,7 +382,7 @@
     
 
     
-    <h4 class="name" id="~validateEndpointData"><span class="type-signature">(inner) </span>validateEndpointData<span class="signature">(data, attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="fetchPackageMetrics"><span class="type-signature">(async) </span>fetchPackageMetrics<span class="signature">(pkg)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
     
 
     
@@ -492,9 +390,7 @@
 
 
 <div class="description">
-    <p>Strictly validate the data according to the endpoint schema.
-This rejects unknown/invalid keys.
-Optionally it prints those keys in the message to provide detailed feedback.</p>
+    <p>Fetches package metrics from the Thunderstore API.</p>
 </div>
 
 
@@ -530,7 +426,7 @@ Optionally it prints those keys in the message to provide detailed feedback.</p>
 
         <tr>
             
-                <td class="name"><code>data</code></td>
+                <td class="name"><code>pkg</code></td>
             
 
             <td class="type">
@@ -546,30 +442,7 @@ Optionally it prints those keys in the message to provide detailed feedback.</p>
 
             
 
-            <td class="description last"><p>Object containing the data for validation</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Refer to individual attributes</p>
+            <td class="description last"><p>Package specifier</p>
                 <h6>Properties</h6>
                 
 
@@ -583,8 +456,6 @@ Optionally it prints those keys in the message to provide detailed feedback.</p>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -597,7 +468,7 @@ Optionally it prints those keys in the message to provide detailed feedback.</p>
 
         <tr>
             
-                <td class="name"><code>prettyErrorMessage</code></td>
+                <td class="name"><code>namespace</code></td>
             
 
             <td class="type">
@@ -610,53 +481,33 @@ Optionally it prints those keys in the message to provide detailed feedback.</p>
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>If provided then error message is set to this value</p></td>
+            <td class="description last"><p>the package namespace</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>includeKeys</code></td>
+                <td class="name"><code>packageName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>If true then includes error details in error message, defaults to false</p></td>
+            <td class="description last"><p>the package name</p></td>
         </tr>
 
     
@@ -704,7 +555,7 @@ Optionally it prints those keys in the message to provide detailed feedback.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_endpoint-common.js.html">services/endpoint-common.js</a>, <a href="services_endpoint-common.js.html#line59">line 59</a>
+        <a href="services_thunderstore_thunderstore-base.js.html">services/thunderstore/thunderstore-base.js</a>, <a href="services_thunderstore_thunderstore-base.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -727,45 +578,15 @@ Optionally it prints those keys in the message to provide detailed feedback.</p>
 
 
 
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        <p>Error if Joi validation fails due to invalid or no schema</p>
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">InvalidResponse</span>
-|
-
-<span class="param-type">Error</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>Value if Joi validation is success</p>
+    <ul>
+<li>Promise containing validated package metrics</li>
+</ul>
 </div>
 
 
@@ -776,7 +597,7 @@ Optionally it prints those keys in the message to provide detailed feedback.</p>
     </dt>
     <dd>
         
-<span class="param-type">object</span>
+<span class="param-type">Promise.&lt;object></span>
 
 
     </dd>
