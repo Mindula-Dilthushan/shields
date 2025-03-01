@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: XmlElement</title>
+    <title>JSDoc: Source: services/date.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,450 +17,126 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: XmlElement</h1>
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-badge-maker_lib_xml.html">badge-maker/lib/xml</a>~</span>XmlElement<span class="signature">(attrs)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>Representation of an XML element</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-    <h2>Constructor</h2>
-    
-
-    
-    <h4 class="name" id="XmlElement"><span class="type-signature"></span>new XmlElement<span class="signature">(attrs)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Xml Element Constructor</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Refer to individual attrs</p>
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Name of the XML tag</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>content</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;(string|<a href="module-badge-maker_lib_xml-XmlElement.html">module:badge-maker/lib/xml~XmlElement</a>)></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    []
-                
-                </td>
-            
-
-            <td class="description last"><p>Array of objects to render inside the tag. content may contain a mix of
-string and XmlElement objects. If content is <code>[]</code> or omitted the
-element will be rendered as a self-closing element.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
-
-            <td class="description last"><p>Object representing the tag's attributes as name/value pairs</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="badge-maker_lib_xml.js.html">badge-maker/lib/xml.js</a>, <a href="badge-maker_lib_xml.js.html#line29">line 29</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Render the XML element to a string, applying appropriate escaping</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="badge-maker_lib_xml.js.html">badge-maker/lib/xml.js</a>, <a href="badge-maker_lib_xml.js.html#line54">line 54</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>String representation of the XML element</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">Source: services/date.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Commonly-used functions for rendering badges containing a date
+ *
+ * @module
+ */
+
+import dayjs from 'dayjs'
+import calendar from 'dayjs/plugin/calendar.js'
+import customParseFormat from 'dayjs/plugin/customParseFormat.js'
+import { colorScale } from './color-formatters.js'
+import { InvalidResponse } from './index.js'
+
+dayjs.extend(calendar)
+dayjs.extend(customParseFormat)
+
+/**
+ * Parse and validate a string date into a dayjs object. Use this helper
+ * in preference to invoking dayjs directly when parsing a date from string.
+ *
+ * @param {...any} args - Variadic: Arguments to pass through to dayjs
+ * @returns {dayjs} - Parsed object
+ * @throws {InvalidResponse} - Error if validation fails
+ * @see https://day.js.org/docs/en/parse/string
+ * @see https://day.js.org/docs/en/parse/string-format
+ * @see https://day.js.org/docs/en/parse/is-valid
+ * @example
+ * parseDate('2024-01-01')
+ * parseDate('31/01/2024', 'DD/MM/YYYY')
+ * parseDate('2018 Enero 15', 'YYYY MMMM DD', 'es')
+ */
+function parseDate(...args) {
+  let date
+  if (args.length >= 2) {
+    // always use strict mode if format arg is supplied
+    date = dayjs(...args, true)
+  } else {
+    date = dayjs(...args)
+  }
+  if (!date.isValid()) {
+    throw new InvalidResponse({ prettyMessage: 'invalid date' })
+  }
+  return date
+}
+
+/**
+ * Returns a formatted date string without the year based on the value of input date param d.
+ *
+ * @param {Date | string | number | dayjs } d JS Date object, string, unix timestamp or dayjs object
+ * @returns {string} Formatted date string
+ */
+function formatDate(d) {
+  const date = parseDate(d)
+  const dateString = date.calendar(null, {
+    lastDay: '[yesterday]',
+    sameDay: '[today]',
+    lastWeek: '[last] dddd',
+    sameElse: 'MMMM YYYY',
+  })
+  // Trim current year from date string
+  return dateString.replace(` ${dayjs().year()}`, '').toLowerCase()
+}
+
+/**
+ * Determines the color used for a badge according to the age.
+ * Age is calculated as days elapsed till current date.
+ * The color varies from bright green to red as the age increases
+ * or the other way around if `reverse` is given `true`.
+ *
+ * @param {Date | string | number | dayjs } date JS Date object, string, unix timestamp or dayjs object
+ * @param {boolean} reversed Reverse the color scale (the older, the better)
+ * @returns {string} Badge color
+ */
+function age(date, reversed = false) {
+  const colorByAge = colorScale([7, 30, 180, 365, 730], undefined, !reversed)
+  const daysElapsed = dayjs().diff(parseDate(date), 'days')
+  return colorByAge(daysElapsed)
+}
+
+/**
+ * Creates a badge object that displays a date
+ *
+ * @param {Date | string | number | dayjs } date JS Date object, string, unix timestamp or dayjs object
+ * @param {boolean} reversed Reverse the color scale (the older, the better)
+ * @returns {object} A badge object that has two properties: message, and color
+ */
+function renderDateBadge(date, reversed = false) {
+  const d = parseDate(date)
+  const color = age(d, reversed)
+  const message = formatDate(d)
+  return { message, color }
+}
+
+/**
+ * Returns a relative date from the input timestamp.
+ * For example, day after tomorrow's timestamp will return 'in 2 days'.
+ *
+ * @param {number | string} timestamp - Unix timestamp
+ * @returns {string} Relative date from the unix timestamp
+ */
+function formatRelativeDate(timestamp) {
+  const parsedDate = dayjs.unix(parseInt(timestamp, 10))
+  if (!parsedDate.isValid()) {
+    return 'invalid date'
+  }
+  return dayjs().to(parsedDate).toLowerCase()
+}
+
+export { parseDate, renderDateBadge, formatDate, formatRelativeDate, age }
+</code></pre>
+        </article>
+    </section>
 
 
 

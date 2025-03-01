@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: XmlElement</title>
+    <title>JSDoc: Source: services/winget/version.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,450 +17,190 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: XmlElement</h1>
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-badge-maker_lib_xml.html">badge-maker/lib/xml</a>~</span>XmlElement<span class="signature">(attrs)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>Representation of an XML element</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-    <h2>Constructor</h2>
-    
-
-    
-    <h4 class="name" id="XmlElement"><span class="type-signature"></span>new XmlElement<span class="signature">(attrs)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Xml Element Constructor</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Refer to individual attrs</p>
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Name of the XML tag</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>content</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;(string|<a href="module-badge-maker_lib_xml-XmlElement.html">module:badge-maker/lib/xml~XmlElement</a>)></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    []
-                
-                </td>
-            
-
-            <td class="description last"><p>Array of objects to render inside the tag. content may contain a mix of
-string and XmlElement objects. If content is <code>[]</code> or omitted the
-element will be rendered as a self-closing element.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
-
-            <td class="description last"><p>Object representing the tag's attributes as name/value pairs</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="badge-maker_lib_xml.js.html">badge-maker/lib/xml.js</a>, <a href="badge-maker_lib_xml.js.html#line29">line 29</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Render the XML element to a string, applying appropriate escaping</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="badge-maker_lib_xml.js.html">badge-maker/lib/xml.js</a>, <a href="badge-maker_lib_xml.js.html#line54">line 54</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>String representation of the XML element</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">Source: services/winget/version.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Comparing versions with winget's version comparator.
+ *
+ * See https://github.com/microsoft/winget-cli/blob/ae566c7bf21cfcc75be7ec30e4036a30eede8396/src/AppInstallerSharedLib/Versions.cpp for original implementation.
+ *
+ * @module
+ */
+
+/**
+ * Compares two strings representing version numbers lexicographically and returns an integer value.
+ *
+ * @param {string} v1 - The first version to compare
+ * @param {string} v2 - The second version to compare
+ * @returns {number} -1 if v1 is smaller than v2, 1 if v1 is larger than v2, 0 if v1 and v2 are equal
+ * @example
+ * compareVersion('1.2.3', '1.2.4') // returns -1 because numeric part of first version is smaller than the numeric part of second version.
+ */
+function compareVersion(v1, v2) {
+  // https://github.com/microsoft/winget-cli/blob/ae566c7bf21cfcc75be7ec30e4036a30eede8396/src/AppInstallerSharedLib/Versions.cpp#L109-L173
+  // This implementation does not parse s_Approximate_Greater_Than
+  // and s_Approximate_Less_Than since they won't appear in directory name (package version parsed by shields.io)
+  const v1Trimmed = trimPrefix(v1)
+  const v2Trimmed = trimPrefix(v2)
+
+  const v1Latest = v1Trimmed.trim().toLowerCase() === 'latest'
+  const v2Latest = v2Trimmed.trim().toLowerCase() === 'latest'
+
+  if (v1Latest &amp;&amp; v2Latest) {
+    return 0
+  } else if (v1Latest) {
+    return 1
+  } else if (v2Latest) {
+    return -1
+  }
+
+  const v1Unknown = v1Trimmed.trim().toLowerCase() === 'unknown'
+  const v2Unknown = v2Trimmed.trim().toLowerCase() === 'unknown'
+
+  if (v1Unknown &amp;&amp; v2Unknown) {
+    return 0
+  } else if (v1Unknown) {
+    return -1
+  } else if (v2Unknown) {
+    return 1
+  }
+
+  const parts1 = v1Trimmed.split('.')
+  const parts2 = v2Trimmed.split('.')
+
+  trimLastZeros(parts1)
+  trimLastZeros(parts2)
+
+  for (let i = 0; i &lt; Math.min(parts1.length, parts2.length); i++) {
+    const part1 = parts1[i]
+    const part2 = parts2[i]
+
+    const compare = compareVersionPart(part1, part2)
+    if (compare !== 0) {
+      return compare
+    }
+  }
+
+  if (parts1.length === parts2.length) {
+    return 0
+  }
+
+  if (parts1.length > parts2.length) {
+    return 1
+  } else if (parts1.length &lt; parts2.length) {
+    return -1
+  }
+
+  return 0
+}
+
+/**
+ * Removes all leading non-digit characters from a version number string
+ * if there is a digit before the split character, or no split characters exist.
+ *
+ * @param {string} version The version number string to trim
+ * @returns {string} The version number string with all leading non-digit characters removed
+ */
+function trimPrefix(version) {
+  // https://github.com/microsoft/winget-cli/blob/ae566c7bf21cfcc75be7ec30e4036a30eede8396/src/AppInstallerSharedLib/Versions.cpp#L66
+  // If there is a digit before the split character, or no split characters exist, trim off all leading non-digit characters
+
+  const digitPos = version.match(/(\d.*)/)
+  const splitPos = version.match(/\./)
+  if (digitPos &amp;&amp; (splitPos == null || digitPos.index &lt; splitPos.index)) {
+    // there is digit before the split character so strip off all leading non-digit characters
+    return version.slice(digitPos.index)
+  }
+  return version
+}
+
+/**
+ * Removes all trailing zeros from a version number part array.
+ *
+ * @param {string[]} parts - parts
+ */
+function trimLastZeros(parts) {
+  while (parts.length > 1 &amp;&amp; parts[parts.length - 1].trim() === '0') {
+    parts.pop()
+  }
+}
+
+/**
+ * Compares two strings representing version number parts lexicographically and returns an integer value.
+ *
+ * @param {string} part1 - The first version part to compare
+ * @param {string} part2 - The second version part to compare
+ * @returns {number} -1 if part1 is smaller than part2, 1 if part1 is larger than part2, 0 if part1 and part2 are equal
+ * @example
+ * compareVersionPart('3', '4') // returns -1 because numeric part of first part is smaller than the numeric part of second part.
+ */
+function compareVersionPart(part1, part2) {
+  // https://github.com/microsoft/winget-cli/blob/ae566c7bf21cfcc75be7ec30e4036a30eede8396/src/AppInstallerSharedLib/Versions.cpp#L324-L352
+  const [, numericString1, other1] = part1.trim().match(/^(\d*)(.*)$/)
+  const [, numericString2, other2] = part2.trim().match(/^(\d*)(.*)$/)
+  const numeric1 = parseInt(numericString1 || '0', 10)
+  const numeric2 = parseInt(numericString2 || '0', 10)
+
+  if (numeric1 &lt; numeric2) {
+    return -1
+  } else if (numeric1 > numeric2) {
+    return 1
+  }
+  // numeric1 === numeric2
+
+  const otherFolded1 = (other1 ?? '').toLowerCase()
+  const otherFolded2 = (other2 ?? '').toLowerCase()
+
+  if (otherFolded1.length !== 0 &amp;&amp; otherFolded2.length === 0) {
+    return -1
+  } else if (otherFolded1.length === 0 &amp;&amp; otherFolded2.length !== 0) {
+    return 1
+  }
+
+  if (otherFolded1 &lt; otherFolded2) {
+    return -1
+  } else if (otherFolded1 > otherFolded2) {
+    return 1
+  }
+
+  return 0
+}
+
+/**
+ * Finds the largest version number lexicographically from an array of strings representing version numbers and returns it as a string.
+ *
+ * @param {string[]} versions - The array of version numbers to compare
+ * @returns {string|undefined} The largest version number as a string, or undefined if the array is empty
+ * @example
+ * latest(['1.2.3', '1.2.4', '1.3', '2.0']) // returns '2.0' because it is the largest version number.
+ * latest(['1.2.3', '1.2.4', '1.3-alpha', '2.0-beta']) // returns '2.0-beta'. there is no special handling for pre-release versions.
+ */
+function latest(versions) {
+  const len = versions.length
+  if (len === 0) {
+    return
+  }
+
+  let version = versions[0]
+  for (let i = 1; i &lt; len; i++) {
+    if (compareVersion(version, versions[i]) &lt;= 0) {
+      version = versions[i]
+    }
+  }
+  return version
+}
+
+export { latest, compareVersion }
+</code></pre>
+        </article>
+    </section>
 
 
 

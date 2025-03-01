@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: services/validators</title>
+    <title>JSDoc: Module: services/date</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: services/validators</h1>
+    <h1 class="page-title">Module: services/date</h1>
 
     
 
@@ -34,7 +34,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>This module contains commonly used validators.</p></div>
+            <div class="description"><p>Commonly-used functions for rendering badges containing a date</p></div>
         
 
         
@@ -69,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line1">line 1</a>
+        <a href="services_date.js.html">services/date.js</a>, <a href="services_date.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -98,30 +98,130 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<h4 class="name" id=".anyInteger"><span class="type-signature">(static, constant) </span>anyInteger<span class="type-signature"> :Joi</span></h4>
 
+    
+
+    
+    <h4 class="name" id="~age"><span class="type-signature">(inner) </span>age<span class="signature">(date, reversed)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
 
 
 
 <div class="description">
-    <p>Joi validator that checks if a value is a number, an integer and the value must be present.</p>
+    <p>Determines the color used for a badge according to the age.
+Age is calculated as days elapsed till current date.
+The color varies from bright green to red as the age increases
+or the other way around if <code>reverse</code> is given <code>true</code>.</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<span class="param-type">Joi</span>
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+|
+
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+|
+
+<span class="param-type">dayjs</span>
 
 
-        </li>
-    </ul>
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>JS Date object, string, unix timestamp or dayjs object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reversed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Reverse the color scale (the older, the better)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -156,7 +256,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line35">line 35</a>
+        <a href="services_date.js.html">services/date.js</a>, <a href="services_date.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -172,29 +272,124 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
-            
-<h4 class="name" id=".fileSize"><span class="type-signature">(static, constant) </span>fileSize<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi validator for a file size we are going to pass to bytes.parse
-see https://github.com/visionmedia/bytes.js#bytesparsestringnumber-value-numbernull</p>
+<div class="param-desc">
+    <p>Badge color</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
             
-<span class="param-type">Joi</span>
+
+    
+
+    
+    <h4 class="name" id="~formatDate"><span class="type-signature">(inner) </span>formatDate<span class="signature">(d)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
 
 
-        </li>
-    </ul>
+
+<div class="description">
+    <p>Returns a formatted date string without the year based on the value of input date param d.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>d</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+|
+
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+|
+
+<span class="param-type">dayjs</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>JS Date object, string, unix timestamp or dayjs object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -229,7 +424,7 @@ see https://github.com/visionmedia/bytes.js#bytesparsestringnumber-value-numbern
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line86">line 86</a>
+        <a href="services_date.js.html">services/date.js</a>, <a href="services_date.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -245,28 +440,119 @@ see https://github.com/visionmedia/bytes.js#bytesparsestringnumber-value-numbern
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
-            
-<h4 class="name" id=".nonNegativeInteger"><span class="type-signature">(static, constant) </span>nonNegativeInteger<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi validator that checks if a value is a number, an integer, greater than or equal to zero and the value must be present.</p>
+<div class="param-desc">
+    <p>Formatted date string</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
             
-<span class="param-type">Joi</span>
+
+    
+
+    
+    <h4 class="name" id="~formatRelativeDate"><span class="type-signature">(inner) </span>formatRelativeDate<span class="signature">(timestamp)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
 
 
-        </li>
-    </ul>
+
+<div class="description">
+    <p>Returns a relative date from the input timestamp.
+For example, day after tomorrow's timestamp will return 'in 2 days'.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>timestamp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Unix timestamp</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -301,7 +587,7 @@ see https://github.com/visionmedia/bytes.js#bytesparsestringnumber-value-numbern
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line28">line 28</a>
+        <a href="services_date.js.html">services/date.js</a>, <a href="services_date.js.html#line100">line 100</a>
     </li></ul></dd>
     
 
@@ -317,33 +603,128 @@ see https://github.com/visionmedia/bytes.js#bytesparsestringnumber-value-numbern
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
-            
-<h4 class="name" id=".optionalDottedVersionNClausesWithOptionalSuffix"><span class="type-signature">(static, constant) </span>optionalDottedVersionNClausesWithOptionalSuffix<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi validator that checks if a value is a string that matches a regular expression.
-The regular expression matches strings that start with one or more digits, followed by zero or more groups of a dot and one or more digits,
-followed by an optional suffix that starts with a dash or a plus sign and can contain any characters.
-This validator can be used to validate properties that can be version strings with an optional suffix or absent.
-For example, some valid values for this validator are: 1, 1.0, 1.0.0, 1.0.0-beta
-Some invalid values for this validator are: abc, 1.a, 1.0-, .1</p>
+<div class="param-desc">
+    <p>Relative date from the unix timestamp</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
             
-<span class="param-type">Joi</span>
+
+    
+
+    
+    <h4 class="name" id="~parseDate"><span class="type-signature">(inner) </span>parseDate<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {dayjs}</span></h4>
+    
+
+    
 
 
-        </li>
-    </ul>
+
+<div class="description">
+    <p>Parse and validate a string date into a dayjs object. Use this helper
+in preference to invoking dayjs directly when parsing a date from string.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Variadic: Arguments to pass through to dayjs</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -378,12 +759,23 @@ Some invalid values for this validator are: abc, 1.a, 1.0-, .1</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line61">line 61</a>
+        <a href="services_date.js.html">services/date.js</a>, <a href="services_date.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://day.js.org/docs/en/parse/string">https://day.js.org/docs/en/parse/string</a></li>
+        
+            <li><a href="https://day.js.org/docs/en/parse/string-format">https://day.js.org/docs/en/parse/string-format</a></li>
+        
+            <li><a href="https://day.js.org/docs/en/parse/is-valid">https://day.js.org/docs/en/parse/is-valid</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -394,29 +786,199 @@ Some invalid values for this validator are: abc, 1.a, 1.0-, .1</p>
 
 
 
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
         
-            
-<h4 class="name" id=".optionalUrl"><span class="type-signature">(static, constant) </span>optionalUrl<span class="type-signature"> :Joi</span></h4>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <ul>
+<li>Error if validation fails</li>
+</ul>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">InvalidResponse</span>
 
 
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
 
 
-<div class="description">
-    <p>Joi validator that checks if a value is a URL</p>
-<p>TODO: This accepts URLs with query strings and fragments, which for some purposes should be rejected.</p>
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>Parsed object</li>
+</ul>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">dayjs</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>parseDate('2024-01-01')
+parseDate('31/01/2024', 'DD/MM/YYYY')
+parseDate('2018 Enero 15', 'YYYY MMMM DD', 'es')</code></pre>
+
+
+
+        
             
-<span class="param-type">Joi</span>
+
+    
+
+    
+    <h4 class="name" id="~renderDateBadge"><span class="type-signature">(inner) </span>renderDateBadge<span class="signature">(date, reversed)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
-        </li>
-    </ul>
+
+<div class="description">
+    <p>Creates a badge object that displays a date</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+|
+
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+|
+
+<span class="param-type">dayjs</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>JS Date object, string, unix timestamp or dayjs object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reversed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Reverse the color scale (the older, the better)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -451,7 +1013,7 @@ Some invalid values for this validator are: abc, 1.a, 1.0-, .1</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line71">line 71</a>
+        <a href="services_date.js.html">services/date.js</a>, <a href="services_date.js.html#line86">line 86</a>
     </li></ul></dd>
     
 
@@ -467,369 +1029,43 @@ Some invalid values for this validator are: abc, 1.a, 1.0-, .1</p>
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
-            
-<h4 class="name" id=".relativeUri"><span class="type-signature">(static, constant) </span>relativeUri<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi validator that checks if a value is a relative-only URI</p>
+<div class="param-desc">
+    <p>A badge object that has two properties: message, and color</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Joi</span>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
 
 
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line95">line 95</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
+    </dd>
 </dl>
 
+    
 
 
 
 
 
         
-            
-<h4 class="name" id=".semver"><span class="type-signature">(static, constant) </span>semver<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi validator that checks if a value is a valid semantic versioning string and the value must be present.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Joi</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line42">line 42</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".semverRange"><span class="type-signature">(static, constant) </span>semverRange<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi validator that checks if a value is a valid semantic versioning range and the value must be present.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Joi</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line49">line 49</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".url"><span class="type-signature">(static, constant) </span>url<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi validator that checks if a value is a URL and the value must be present.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Joi</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line78">line 78</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~optionalNonNegativeInteger"><span class="type-signature">(inner, constant) </span>optionalNonNegativeInteger<span class="type-signature"> :Joi</span></h4>
-
-
-
-
-<div class="description">
-    <p>Joi validator that checks if a value is a number, an integer, and greater than or equal to zero.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Joi</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_validators.js.html">services/validators.js</a>, <a href="services_validators.js.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
     
 
     
