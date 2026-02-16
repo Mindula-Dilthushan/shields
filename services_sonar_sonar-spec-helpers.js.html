@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: services/build-status.js</title>
+    <title>JSDoc: Source: services/sonar/sonar-spec-helpers.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: services/build-status.js</h1>
+    <h1 class="page-title">Source: services/sonar/sonar-spec-helpers.js</h1>
 
     
 
@@ -26,104 +26,42 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Common functions and schemas for tasks related to build status.
- *
- * @module
- */
+            <pre class="prettyprint source linenums"><code>import SonarBase from './sonar-base.js'
+import { openApiQueryParams } from './sonar-helpers.js'
 
-import Joi from 'joi'
-
-const greenStatuses = [
-  'fixed',
-  'passed',
-  'passing',
-  'succeeded',
-  'success',
-  'successful',
-]
-
-const orangeStatuses = ['partially succeeded', 'unstable', 'timeout']
-
-const redStatuses = [
-  'broken',
-  'error',
-  'errored',
-  'failed',
-  'failing',
-  'failure',
-  'infrastructure_failure',
-]
-
-const otherStatuses = [
-  'aborted',
-  'building',
-  'canceled',
-  'cancelled',
-  'created',
-  'expired',
-  'initiated',
-  'no builds',
-  'no tests',
-  'not built',
-  'not run',
-  'pending',
-  'processing',
-  'queued',
-  'running',
-  'scheduled',
-  'skipped',
-  'starting',
-  'stopped',
-  'testing',
-  'waiting',
-]
-
-const allStatuses = greenStatuses
-  .concat(orangeStatuses)
-  .concat(redStatuses)
-  .concat(otherStatuses)
-
-/**
- * Joi schema for validating Build Status.
- * Checks if the build status is present in the list of allowed build status.
- *
- * @type {Joi}
- */
-const isBuildStatus = Joi.equal(...allStatuses)
-
-/**
- * Handles rendering concerns of badges that display build status.
- * Determines the message and color of the badge according to the build status.
- *
- * @param {object} attrs Refer to individual attributes
- * @param {string} [attrs.label] If provided then badge label is set to this value
- * @param {string} attrs.status Build status
- * @returns {object} Badge with label, message and color properties
- */
-function renderBuildStatusBadge({ label, status }) {
-  let message
-  let color
-  if (greenStatuses.includes(status)) {
-    message = 'passing'
-    color = 'brightgreen'
-  } else if (orangeStatuses.includes(status)) {
-    message = status === 'partially succeeded' ? 'passing' : status
-    color = 'orange'
-  } else if (redStatuses.includes(status)) {
-    message = status === 'failed' ? 'failing' : status
-    color = 'red'
-  } else {
-    message = status
-  }
-  return {
-    label,
-    message,
-    color,
-  }
+const testAuthConfigOverride = {
+  public: {
+    services: {
+      [SonarBase.auth.serviceKey]: {
+        authorizedOrigins: [
+          openApiQueryParams.find(v => v.name === 'server').example,
+        ],
+      },
+    },
+  },
 }
 
-export { isBuildStatus, renderBuildStatusBadge }
+/**
+ * Returns a legacy sonar api response with desired key and value
+ *
+ * @param {string} key Key for the response value
+ * @param {string|number} val Value to assign to response key
+ * @returns {object} Sonar api response
+ */
+function legacySonarResponse(key, val) {
+  return [
+    {
+      msr: [
+        {
+          key,
+          val,
+        },
+      ],
+    },
+  ]
+}
+
+export { testAuthConfigOverride, legacySonarResponse }
 </code></pre>
         </article>
     </section>
